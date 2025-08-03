@@ -1,0 +1,779 @@
+/* frontend/src/styles/inventory/categories.css */
+
+/* ==============================================
+   CATEGORIES MODULE - Gestión de categorías
+   ============================================== */
+
+.categories-module {
+  padding: var(--spacing-md);
+  max-width: 100%;
+  margin: 0 auto;
+  overflow-x: hidden; /* Evitar scroll horizontal */
+}
+
+/* Header con acciones */
+.module-header__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  flex-wrap: wrap; /* Permitir wrap en pantallas pequeñas */
+}
+
+.module-header__left {
+  flex: 1;
+  min-width: 200px; /* Ancho mínimo */
+}
+
+.module-header__actions {
+  flex-shrink: 0;
+}
+
+/* ==============================================
+   TOOLBAR - Barra de búsqueda y filtros
+   ============================================== */
+
+.categories-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-sm);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  flex-wrap: wrap; /* Responsive wrap */
+}
+
+.search-container {
+  flex: 1;
+  min-width: 200px;
+  max-width: 350px;
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.search-input__icon {
+  position: absolute;
+  left: var(--spacing-sm);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 2.5rem;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  transition: all var(--transition-fast);
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-shrink: 0;
+}
+
+/* ==============================================
+   CATEGORIES TREE - Árbol de categorías (RESPONSIVE)
+   ============================================== */
+
+.categories-tree {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+.category-tree-item {
+  border-bottom: 1px solid var(--border-primary);
+  width: 100%;
+}
+
+.category-tree-item:last-child {
+  border-bottom: none;
+}
+
+/* ==============================================
+   FAMILY - Familias (nivel principal) RESPONSIVE
+   ============================================== */
+
+.category-family {
+  background: var(--bg-primary);
+  width: 100%;
+}
+
+.category-family__header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md);
+  transition: background-color var(--transition-fast);
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 60px;
+}
+
+.category-family__header:hover {
+  background: var(--bg-secondary);
+}
+
+/* Familia expandida - fondo más oscuro para diferenciar */
+.category-family.expanded .category-family__header {
+  background: var(--bg-tertiary);
+  border-left: 3px solid var(--primary);
+}
+
+.category-family.expanded .category-family__header:hover {
+  background: var(--bg-tertiary);
+}
+
+.category-expand-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.category-expand-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.category-expand-icon {
+  transition: transform var(--transition-fast);
+  width: 14px;
+  height: 14px;
+}
+
+.category-expand-icon.expanded {
+  transform: rotate(90deg);
+}
+
+.category-family__info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+  min-width: 0; /* Permite que se contraiga */
+}
+
+/* Removido category-family__icon - ya no se usa */
+
+.category-family__content {
+  flex: 1;
+  min-width: 0; /* Permite truncado de texto */
+}
+
+.category-family__name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-family__count {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.category-family__actions {
+  display: flex;
+  gap: var(--spacing-xs);
+  opacity: 1; /* Siempre visible por defecto */
+  transition: opacity var(--transition-fast);
+  flex-shrink: 0;
+}
+
+/* Solo ocultar y mostrar al hover si tiene la clase hover-actions */
+.category-family.hover-actions .category-family__actions {
+  opacity: 0;
+}
+
+.category-family.hover-actions .category-family__header:hover .category-family__actions {
+  opacity: 1;
+}
+
+/* ==============================================
+   SUBFAMILY - Subfamilias (nivel secundario) RESPONSIVE
+   ============================================== */
+
+.category-subfamilies {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-primary);
+  width: 100%;
+}
+
+.category-subfamily {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-left: 1.5rem;
+  border-bottom: 1px solid var(--border-secondary);
+  transition: background-color var(--transition-fast);
+  width: calc(100% - 1.5rem);
+  box-sizing: border-box;
+  min-height: 50px;
+}
+
+.category-subfamily:hover {
+  background: var(--bg-tertiary);
+}
+
+.category-subfamily:last-of-type {
+  border-bottom: none;
+}
+
+.category-subfamily__info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+  min-width: 0;
+}
+
+/* Removido category-subfamily__icon - ya no se usa */
+
+.category-subfamily__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.category-subfamily__name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0 0 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-subfamily__count {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.category-subfamily__actions {
+  display: flex;
+  gap: var(--spacing-xs);
+  opacity: 1; /* Siempre visible por defecto */
+  transition: opacity var(--transition-fast);
+  flex-shrink: 0;
+}
+
+/* Solo ocultar y mostrar al hover si tiene la clase hover-actions */
+.category-subfamily.hover-actions .category-subfamily__actions {
+  opacity: 0;
+}
+
+.category-subfamily.hover-actions:hover .category-subfamily__actions {
+  opacity: 1;
+}
+
+/* Botón para agregar subfamilia */
+.add-subfamily-btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-left: 1.5rem;
+  border-top: 1px dashed var(--border-secondary);
+  width: calc(100% - 1.5rem);
+  box-sizing: border-box;
+}
+
+/* ==============================================
+   ACTION BUTTONS - Botones de acción RESPONSIVE
+   ============================================== */
+
+.action-btn {
+  background: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.8rem;
+  height: 1.8rem;
+  flex-shrink: 0;
+}
+
+.action-btn--sm {
+  min-width: 1.6rem;
+  height: 1.6rem;
+  font-size: 0.75rem;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.action-btn--primary {
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.action-btn--primary:hover:not(:disabled) {
+  background: var(--primary);
+  color: white;
+}
+
+.action-btn--success {
+  color: var(--success);
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.action-btn--success:hover:not(:disabled) {
+  background: var(--success);
+  color: white;
+}
+
+.action-btn--danger {
+  color: var(--error);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.action-btn--danger:hover:not(:disabled) {
+  background: var(--error);
+  color: white;
+}
+
+/* ==============================================
+   BUTTONS - Botones generales reutilizables
+   ============================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  background: none;
+  white-space: nowrap;
+}
+
+.btn--sm {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: 0.8rem;
+}
+
+.btn__icon {
+  font-size: 1em;
+  flex-shrink: 0;
+}
+
+.btn--primary {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.btn--primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn--secondary {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-primary);
+}
+
+.btn--secondary:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--primary);
+}
+
+.btn--ghost {
+  color: var(--text-secondary);
+  border-color: var(--border-secondary);
+}
+
+.btn--ghost:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-primary);
+}
+
+/* ==============================================
+   EMPTY STATE - Estado vacío (CORREGIDO)
+   ============================================== */
+
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-lg) var(--spacing-md);
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  margin: var(--spacing-md) 0;
+  border: 1px dashed var(--border-secondary);
+  /* REMOVIDO: height fijo que causaba el problema */
+}
+
+.empty-state__icon {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-sm);
+  opacity: 0.7;
+}
+
+.empty-state__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.empty-state__description {
+  font-size: 0.8rem;
+  max-width: 280px;
+  margin: 0 auto;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+/* ==============================================
+   MODAL - Modales (básico, para después mejorar)
+   ============================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--spacing-md);
+}
+
+.modal {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.modal__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.modal__close {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.modal__close:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.modal__body {
+  padding: var(--spacing-lg);
+}
+
+/* ==============================================
+   RESPONSIVE DESIGN - MOBILE FIRST
+   ============================================== */
+
+/* Móviles ultra pequeños - 320px */
+@media (max-width: 320px) {
+  .categories-module {
+    padding: var(--spacing-xs);
+  }
+
+  .module-header__content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-xs);
+  }
+
+  .module-title {
+    font-size: 1.3rem;
+    line-height: 1.2;
+  }
+
+  .module-description {
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .categories-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs);
+  }
+
+  .search-container {
+    max-width: none;
+    min-width: auto;
+  }
+
+  .search-input {
+    font-size: 0.8rem;
+    padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-xs) 2.2rem;
+  }
+
+  .search-input__icon {
+    left: var(--spacing-xs);
+  }
+
+  .btn {
+    font-size: 0.75rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .btn--sm {
+    padding: 4px var(--spacing-xs);
+    font-size: 0.7rem;
+  }
+
+  /* Empty state para móvil */
+  .empty-state {
+    padding: var(--spacing-md) var(--spacing-sm);
+    margin: var(--spacing-sm) 0;
+  }
+
+  .empty-state__icon {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .empty-state__title {
+    font-size: 0.9rem;
+  }
+
+  .empty-state__description {
+    font-size: 0.75rem;
+    max-width: 250px;
+  }
+
+  /* Familias más compactas */
+  .category-family__header {
+    padding: var(--spacing-xs);
+    gap: 4px;
+    min-height: 52px;
+  }
+
+  .category-family__icon {
+    font-size: 1.1rem;
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .category-family__name {
+    font-size: 0.85rem;
+    line-height: 1.2;
+  }
+
+  .category-family__count {
+    font-size: 0.7rem;
+  }
+
+  /* Subfamilias más compactas */
+  .category-subfamily {
+    padding: 4px var(--spacing-xs);
+    margin-left: 0.8rem;
+    width: calc(100% - 0.8rem);
+    min-height: 44px;
+  }
+
+  .category-subfamily__icon {
+    font-size: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .category-subfamily__name {
+    font-size: 0.8rem;
+  }
+
+  .category-subfamily__count {
+    font-size: 0.7rem;
+  }
+
+  .add-subfamily-btn {
+    margin-left: 0.8rem;
+    width: calc(100% - 0.8rem);
+    padding: 4px var(--spacing-xs);
+  }
+
+  /* Botones de acción más pequeños */
+  .action-btn {
+    min-width: 1.4rem;
+    height: 1.4rem;
+    font-size: 0.7rem;
+    padding: 2px;
+  }
+
+  .action-btn--sm {
+    min-width: 1.2rem;
+    height: 1.2rem;
+    font-size: 0.65rem;
+  }
+
+  /* Espaciado de gap más pequeño */
+  .category-family__actions,
+  .category-subfamily__actions {
+    gap: 2px;
+  }
+
+  /* Expand button más pequeño */
+  .category-expand-btn {
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+  }
+
+  .category-expand-icon {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* Móviles pequeños - 375px */
+@media (max-width: 480px) and (min-width: 321px) {
+  .categories-module {
+    padding: var(--spacing-sm);
+  }
+
+  .module-header__content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+
+  .categories-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+  }
+
+  .search-container {
+    max-width: none;
+    min-width: auto;
+  }
+
+  .category-family__header {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-xs);
+  }
+
+  .category-family__name {
+    font-size: 0.9rem;
+  }
+
+  .category-subfamily {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    margin-left: 1rem;
+    width: calc(100% - 1rem);
+  }
+
+  .add-subfamily-btn {
+    margin-left: 1rem;
+    width: calc(100% - 1rem);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .category-family__actions,
+  .category-subfamily__actions {
+    opacity: 1; /* Siempre visible en móvil */
+  }
+
+  .action-btn {
+    min-width: 1.6rem;
+    height: 1.6rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) and (min-width: 481px) {
+  .categories-module {
+    padding: var(--spacing-md);
+  }
+
+  .module-header__content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-md);
+  }
+
+  .categories-toolbar {
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  .category-family__actions,
+  .category-subfamily__actions {
+    opacity: 1; /* Siempre visible en tablet */
+  }
+}

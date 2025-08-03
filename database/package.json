@@ -1,0 +1,23 @@
+{
+  "name": "pos-database-setup",
+  "version": "1.0.0",
+  "description": "Script de setup para base de datos POS",
+  "main": "setup.js",
+  "scripts": {
+    "setup": "node setup.js",
+    "setup:force": "node setup.js --force",
+    "setup:quiet": "node setup.js --quiet",
+    "test": "node setup.js --database pos_test"
+  },
+  "keywords": ["pos", "database", "setup", "postgresql"],
+  "author": "Jose",
+  "license": "MIT",
+  "dependencies": {
+    "pg": "^8.11.3",
+    "chalk": "^4.1.2",
+    "yargs": "^17.7.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}  

@@ -1,0 +1,10 @@
+{
+  "host": "localhost",
+  "port": 5432,
+  "user": "postgres",
+  "password": "79543786",
+  "database_name": "pos_system",
+  "schema_file": "schema.sql",
+  "force_recreate": false,
+  "verify_creation": true
+}

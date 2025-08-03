@@ -1,0 +1,320 @@
+/* ==============================================
+   INVENTORY MODULE VIEW - Vista de módulos específicos
+   ============================================== */
+
+.inventory-module-view {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.inventory-module-header {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.inventory-module-header .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}/* frontend/src/styles/inventory/inventory-dashboard.css */
+
+/* ==============================================
+   INVENTORY DASHBOARD - Vista principal
+   ============================================== */
+
+.inventory-dashboard {
+  padding: var(--spacing-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header del módulo reutilizable */
+.module-header {
+  margin-bottom: var(--spacing-2xl);
+  text-align: center;
+}
+
+.module-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.module-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Secciones */
+.inventory-cards-section,
+.quick-actions-section,
+.inventory-summary {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--border-primary);
+}
+
+/* ==============================================
+   INVENTORY CARDS - Cards principales de navegación
+   ============================================== */
+
+.inventory-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.inventory-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.inventory-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary);
+}
+
+.inventory-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  transition: background-color var(--transition-fast);
+}
+
+/* Variantes de color para inventory cards */
+.inventory-card--primary::before {
+  background: linear-gradient(90deg, var(--primary), var(--primary-hover));
+}
+
+.inventory-card--success::before {
+  background: linear-gradient(90deg, var(--success), #059669);
+}
+
+.inventory-card--warning::before {
+  background: linear-gradient(90deg, var(--warning), #d97706);
+}
+
+.inventory-card--info::before {
+  background: linear-gradient(90deg, #0ea5e9, #0284c7);
+}
+
+.inventory-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.inventory-card__icon {
+  font-size: 2.5rem;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  flex-shrink: 0;
+}
+
+.inventory-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.inventory-card__description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.4;
+}
+
+.inventory-card__stats {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--primary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--primary-light);
+  border-radius: var(--radius-md);
+  display: inline-block;
+}
+
+/* ==============================================
+   QUICK ACTIONS - Botones de acciones rápidas
+   ============================================== */
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.quick-action-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+  width: 100%;
+}
+
+.quick-action-btn:hover {
+  background: var(--bg-secondary);
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.quick-action-btn__icon {
+  font-size: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.quick-action-btn--primary .quick-action-btn__icon {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.quick-action-btn--secondary .quick-action-btn__icon {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+.quick-action-btn--info .quick-action-btn__icon {
+  background: rgba(14, 165, 233, 0.1);
+  color: #0ea5e9;
+}
+
+.quick-action-btn--neutral .quick-action-btn__icon {
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+}
+
+.quick-action-btn__content {
+  flex: 1;
+}
+
+.quick-action-btn__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.quick-action-btn__description {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ==============================================
+   INVENTORY SUMMARY - Resumen rápido
+   ============================================== */
+
+.inventory-summary {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+}
+
+.inventory-summary__content {
+  margin-top: var(--spacing-md);
+}
+
+.inventory-summary__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.summary-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-primary);
+}
+
+.summary-stat__label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.summary-stat__value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ==============================================
+   RESPONSIVE DESIGN
+   ============================================== */
+
+@media (max-width: 768px) {
+  .inventory-dashboard {
+    padding: var(--spacing-md);
+  }
+  
+  .inventory-cards-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .quick-actions-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .inventory-summary__stats {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  .summary-stat {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-xs);
+  }
+  
+  .module-title {
+    font-size: 1.5rem;
+  }
+}

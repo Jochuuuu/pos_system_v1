@@ -1,0 +1,7 @@
+/* frontend/src/styles/inventory/index.css */
+@import './inventory-dashboard.css';
+@import './categories.css';
+@import './forms.css';
+@import './products.css';
+@import './product-form.css';  /* ← AGREGAR ESTA LÍNEA */
+@import './stock.css';  /* ← AGREGAR ESTA LÍNEA */

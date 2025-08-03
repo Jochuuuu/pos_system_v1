@@ -1,0 +1,949 @@
+/* =============================================
+   🧑‍💼 MÓDULO DE CLIENTES - SOLO ARREGLOS NECESARIOS
+   ============================================= */
+
+/* 📦 Contenedor principal */
+.customers-container {
+  padding: var(--spacing-lg);
+  max-width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 📋 Header del módulo */
+.customers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  flex-shrink: 0;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin: var(--spacing-xs) 0 0 0;
+}
+
+/* 🛠️ Toolbar de filtros */
+.customers-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-lg);
+  flex-shrink: 0;
+}
+
+.toolbar-filters {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.filter-select {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  transition: border-color var(--transition-fast);
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* 🎯 Acciones masivas */
+.bulk-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.selected-count {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--primary-light);
+  border-radius: var(--radius-sm);
+}
+
+/* ✅ INDICADOR DE ESTADO - NUEVO DISEÑO ✅ */
+.status-indicator {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.status-indicator:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+/* ✅ VARIACIONES DEL INDICADOR ✅ */
+.status-indicator.loading {
+  color: var(--primary);
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.status-indicator.empty {
+  color: var(--text-muted);
+  background-color: var(--bg-secondary);
+}
+
+.status-indicator.filtered {
+  color: var(--warning);
+  border-color: var(--warning);
+  background-color: var(--warning-light);
+}
+
+/* ✅ ICONO DEL INDICADOR ✅ */
+.status-indicator-icon {
+  display: inline-flex;
+  font-size: 1rem;
+}
+
+/* 🔍 Componente de búsqueda */
+.search-container {
+  position: relative;
+  width: 320px;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  left: var(--spacing-sm);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.search-clear {
+  position: absolute;
+  right: var(--spacing-sm);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.search-clear:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+}
+
+.search-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-primary);
+  border-top: 2px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.search-hint {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-primary);
+  border-top: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  z-index: 10;
+}
+
+/* ✅✅✅ CONTENEDOR DE TABLA - ARREGLO PRINCIPAL ✅✅✅ */
+.customers-table-container {
+  flex: 1;
+  overflow: hidden; /* ← CRÍTICO para mantener todo dentro */
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-primary);
+  position: relative; /* ← Para estados absolutos */
+  min-height: 400px; /* ← Altura mínima consistente */
+  width: 100%; /* ← FORZAR ancho completo */
+  max-width: 100%; /* ← NUNCA exceder el contenedor padre */
+}
+
+.table-wrapper {
+  width: 100%; /* ← Usar todo el ancho disponible */
+  height: 100%; /* ← Usar toda la altura disponible */
+  overflow-x: auto; /* ← Scroll horizontal cuando sea necesario */
+  overflow-y: auto; /* ← Scroll vertical cuando sea necesario */
+  max-width: 100%; /* ← NUNCA exceder el contenedor */
+}
+
+/* ✅✅✅ TABLA CON LAYOUT FIJO ✅✅✅ */
+.customers-table {
+  width: 100%;
+  min-width: 800px; /* ← Ancho mínimo, scroll horizontal si no cabe */
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  table-layout: fixed; /* ← CRÍTICO: Fuerza anchos fijos, no negociables */
+}
+
+.customers-table thead {
+  background-color: var(--bg-secondary);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.customers-table th {
+  padding: var(--spacing-md);
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ✅✅✅ CELDAS CON OVERFLOW CONTROLADO ✅✅✅ */
+.customers-table td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-primary);
+  vertical-align: middle;
+  overflow: hidden; /* ← Oculta contenido que se desborda */
+  text-overflow: ellipsis; /* ← Agrega "..." para textos largos */
+  white-space: nowrap; /* ← Evita salto de línea */
+}
+
+.customers-table tbody tr {
+  transition: background-color var(--transition-fast);
+}
+
+.customers-table tbody tr:hover {
+  background-color: var(--bg-secondary);
+}
+
+.customers-table tbody tr.row-selected {
+  background-color: var(--primary-light);
+}
+
+/* 📱 Columnas específicas - ANCHOS FIJOS DESKTOP */
+.table-checkbox {
+  width: 50px;
+  min-width: 50px;
+  max-width: 50px;
+  text-align: center;
+}
+
+.table-actions {
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+  text-align: center;
+}
+
+.customer-doc {
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+}
+
+.customer-name {
+  width: 250px; /* ← Columna principal más ancha */
+  min-width: 250px;
+  max-width: 250px;
+}
+
+.customer-type {
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+}
+
+.customer-phone {
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+}
+
+.customer-email {
+  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
+}
+
+/* 🎨 Contenido de celdas */
+.name-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.name-text {
+  font-weight: 500;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.address-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.doc-text, .phone-text, .email-text {
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.type-badge {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.type-badge.type-P {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.type-badge.type-E {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+[data-theme="dark"] .type-badge.type-P {
+  background-color: #1e3a8a;
+  color: #dbeafe;
+}
+
+[data-theme="dark"] .type-badge.type-E {
+  background-color: #166534;
+  color: #dcfce7;
+}
+
+/* 🔘 Botones de acción */
+.action-buttons {
+  display: flex;
+  gap: var(--spacing-xs);
+  justify-content: center;
+}
+
+.btn-icon {
+  padding: var(--spacing-xs);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-icon-secondary {
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.btn-icon-secondary:hover:not(:disabled) {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.btn-icon-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.btn-icon-primary:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.btn-icon-danger {
+  background-color: var(--error);
+  color: white;
+}
+
+.btn-icon-danger:hover:not(:disabled) {
+  background-color: #dc2626;
+}
+
+/* 📄 Paginación */
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg);
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-primary);
+  flex-shrink: 0;
+}
+
+.pagination-info {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.pagination-numbers {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.pagination-select {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+/* 📝 Formulario de cliente */
+.customer-form {
+  padding: var(--spacing-lg);
+  max-width: 600px;
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.form-group-full {
+  grid-column: 1 / -1;
+}
+
+.form-label {
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.form-input, .form-select {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+}
+
+.form-input:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1);
+}
+
+.form-input:disabled, .form-select:disabled {
+  background-color: var(--bg-secondary);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.form-input.error, .form-select.error {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgb(239 68 68 / 0.1);
+}
+
+.error-text {
+  color: var(--error);
+  font-size: 0.75rem;
+  margin-top: var(--spacing-xs);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-primary);
+}
+
+/* 📊 Vista de solo lectura */
+.form-readonly-info {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-primary);
+}
+
+.info-section h4 {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.info-label {
+  font-weight: 500;
+  color: var(--text-secondary);
+  min-width: 60px;
+}
+
+.info-value {
+  color: var(--text-primary);
+}
+
+/* ✅✅✅ ESTADOS ESPECIALES - DENTRO DEL CONTENEDOR ✅✅✅ */
+.loading-container {
+  position: absolute; /* ← Posición absoluta dentro del contenedor */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  z-index: 5;
+}
+
+.loading-container .loading-spinner {
+  margin-bottom: var(--spacing-md);
+}
+
+.empty-state {
+  position: absolute; /* ← Posición absoluta dentro del contenedor */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-primary);
+  color: var(--text-muted);
+  text-align: center;
+  padding: var(--spacing-2xl);
+  z-index: 5;
+}
+
+.empty-state svg {
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-secondary);
+}
+
+.empty-state p {
+  margin-bottom: var(--spacing-lg);
+  font-size: 0.875rem;
+}
+
+/* 🎭 Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--spacing-md);
+}
+
+.modal-container {
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--border-primary);
+  flex-shrink: 0;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+}
+
+.modal-close:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+}
+
+.modal-body {
+  flex: 1;
+  overflow: auto;
+}
+
+/* =============================================
+   📱 RESPONSIVE - TABLA CON ANCHOS FIJOS
+   ============================================= */
+/* antes era 768 pero asi se ve mejor  es para el sidebar*/
+@media (max-width: 1200px) { 
+  .customers-container {
+    padding: var(--spacing-md);
+  }
+
+  .customers-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-md);
+  }
+
+  .header-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-container {
+    width: 100%;
+  }
+
+  .customers-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-md);
+  }
+
+  .toolbar-filters {
+    flex-wrap: wrap;
+  }
+
+  .bulk-actions {
+    justify-content: center;
+  }
+
+  /* ✅ INDICADOR RESPONSIVE PARA TABLET ✅ */
+  .status-indicator {
+    font-size: 0.7rem;
+    padding: var(--spacing-xs);
+    order: -1; /* ← Mover al inicio en tablet */
+    width: 100%;
+    justify-content: center;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .pagination-container {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: stretch;
+  }
+
+  .pagination-controls {
+    justify-content: center;
+  }
+
+  .modal-container {
+    max-width: 95vw;
+    margin: var(--spacing-sm);
+  }
+
+  /* ✅ TABLA RESPONSIVA PARA TABLETS */
+  .customers-table {
+    font-size: 0.75rem;
+    min-width: 100%; /* ← Usar ancho disponible */
+    width: 100%;
+  }
+
+  .customers-table th,
+  .customers-table td {
+    padding: var(--spacing-sm);
+  }
+
+  /* ✅ ANCHOS PORCENTUALES PARA TABLET */
+  .table-checkbox {
+    width: 8% !important;
+    max-width: 8%;
+    min-width: 8%;
+  }
+
+  .customer-doc {
+    width: 18% !important;
+    max-width: 18%;
+    min-width: 18%;
+  }
+
+  .customer-name {
+    width: 45% !important; /* ← Columna principal */
+    max-width: 45%;
+    min-width: 45%;
+  }
+
+  .customer-type {
+    width: 15% !important;
+    max-width: 15%;
+    min-width: 15%;
+  }
+
+  .table-actions {
+    width: 14% !important;
+    max-width: 14%;
+    min-width: 14%;
+  }
+
+  /* ✅ OCULTAR COLUMNAS MENOS IMPORTANTES Y SUS HEADERS */
+  .customer-email,
+  .customer-phone {
+    display: none;
+  }
+
+  /* ✅ OCULTAR HEADERS DE COLUMNAS NO VISIBLES EN TABLET */
+  .customers-table th:nth-child(5), /* Teléfono */
+  .customers-table th:nth-child(6)  /* Email */ {
+    display: none;
+  }
+
+  /* ✅ BOTONES DE ACCIÓN VERTICALES PARA AHORRAR ESPACIO */
+  .action-buttons {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .btn-icon {
+    min-width: 28px;
+    min-height: 28px;
+    padding: 4px;
+  }
+}
+
+/* ✅✅✅ MÓVILES PEQUEÑOS - MINIMALISTA ✅✅✅ */
+@media (max-width: 480px) {
+  .customers-container {
+    padding: var(--spacing-sm); /* ← Menos padding en móvil */
+  }
+
+  .customers-table {
+    min-width: 100%; /* ← FORZAR que use el ancho disponible */
+    width: 100%; /* ← Sin ancho mínimo fijo */
+  }
+
+  /* ✅ 5 COLUMNAS CON ANCHOS CALCULADOS: Total debe ser ≤ 100% */
+  .table-checkbox {
+    width: 12% !important; /* ← ~48px en 400px de ancho */
+    max-width: 12%;
+    min-width: 12%;
+  }
+
+  .customer-doc {
+    width: 20% !important; /* ← ~80px */
+    max-width: 20%;
+    min-width: 20%;
+  }
+
+  .customer-name {
+    width: 40% !important; /* ← ~160px - Columna principal */
+    max-width: 40%;
+    min-width: 40%;
+  }
+
+  .customer-type {
+    width: 18% !important; /* ← ~72px */
+    max-width: 18%;
+    min-width: 18%;
+  }
+
+  .table-actions {
+    width: 10% !important; /* ← ~40px - Solo iconos */
+    max-width: 10%;
+    min-width: 10%;
+  }
+
+  /* ✅ OCULTAR SOLO TELÉFONO Y EMAIL */
+  .customer-email,
+  .customer-phone {
+    display: none;
+  }
+
+  /* ✅ OCULTAR HEADERS DE COLUMNAS NO VISIBLES */
+  .customers-table th:nth-child(5), /* Teléfono */
+  .customers-table th:nth-child(6)  /* Email */ {
+    display: none;
+  }
+
+  .address-text {
+    display: none; /* ← Ocultar dirección en nombre también */
+  }
+
+  /* ✅ BOTONES MÁS PEQUEÑOS PARA MÓVIL */
+  .btn-icon {
+    min-width: 24px;
+    min-height: 24px;
+    padding: 2px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  /* ✅ TEXTO MÁS PEQUEÑO EN MÓVIL */
+  .customers-table {
+    font-size: 0.7rem;
+  }
+
+  .customers-table th,
+  .customers-table td {
+    padding: var(--spacing-xs);
+  }
+
+  .type-badge {
+    font-size: 0.6rem;
+    padding: 2px 4px;
+  }
+
+  /* ✅ PAGINACIÓN MÁS COMPACTA */
+  .pagination-numbers .btn {
+    padding: var(--spacing-xs);
+    min-width: 32px;
+    font-size: 0.75rem;
+  }
+
+  .pagination-container {
+    padding: var(--spacing-md);
+  }
+
+  .pagination-info {
+    font-size: 0.75rem;
+    text-align: center;
+  }
+
+  /* ✅ INDICADOR MUY COMPACTO PARA MÓVIL ✅ */
+  .status-indicator {
+    font-size: 0.65rem;
+    padding: 4px 8px;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .status-indicator-icon {
+    font-size: 0.8rem;
+  }
+}
+
+/* ✅✅✅ ANIMACIÓN DEL SPINNER ✅✅✅ */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

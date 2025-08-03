@@ -1,0 +1,425 @@
+/* frontend/src/styles/inventory/product-form.css */
+/* Estilos específicos para ProductForm - OPTIMIZADO PARA PERFORMANCE */
+
+/* ========================================== */
+/* MODAL PARA PRODUCTFORM - OPTIMIZADO */
+/* ========================================== */
+
+.product-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--spacing-lg);
+  /* Removido backdrop-filter que causa lag */
+}
+
+.product-form-container {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+  /* Removidas animaciones complejas */
+}
+
+/* Header simplificado */
+.product-form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-xl);
+  background: var(--primary);
+  color: white;
+}
+
+.product-form-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.product-form-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  transition: background-color 0.15s ease;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-form-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Content con scroll optimizado */
+.product-form-content {
+  padding: var(--spacing-xl);
+  max-height: calc(90vh - 180px);
+  overflow-y: auto;
+}
+
+/* Scrollbar simple sin efectos */
+.product-form-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.product-form-content::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+.product-form-content::-webkit-scrollbar-thumb {
+  background: var(--border-primary);
+  border-radius: var(--radius-sm);
+}
+
+/* Footer simplificado */
+.product-form-footer {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-end;
+  padding: var(--spacing-xl);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-primary);
+}
+
+/* ========================================== */
+/* FORM STYLES OPTIMIZADOS */
+/* ========================================== */
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.product-form-grid {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.product-form-grid--2col {
+  grid-template-columns: 1fr 1fr;
+}
+
+.product-form-grid--3col {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.product-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.product-form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.product-form-required {
+  color: var(--error);
+}
+
+.product-form-input,
+.product-form-select {
+  padding: var(--spacing-md);
+  border: 2px solid var(--border-primary);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  transition: border-color 0.15s ease;
+  /* Removidas transformaciones que causan lag */
+}
+
+.product-form-input:focus,
+.product-form-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  /* Removido box-shadow complejo */
+}
+
+.product-form-input--error,
+.product-form-select--error {
+  border-color: var(--error);
+}
+
+.product-form-input:disabled,
+.product-form-select:disabled {
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Input groups optimizados */
+.product-form-input-group {
+  position: relative;
+}
+
+.product-form-input-prefix {
+  position: absolute;
+  left: var(--spacing-md);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.product-form-input-group .product-form-input {
+  padding-left: 3rem;
+}
+
+/* Checkbox simplificado */
+.product-form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  transition: background-color 0.15s ease;
+}
+
+.product-form-checkbox:hover {
+  background: var(--bg-secondary);
+}
+
+.product-form-checkbox input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: var(--primary);
+}
+
+.product-form-checkbox-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* Error messages simplificados */
+.product-form-error {
+  font-size: 0.75rem;
+  color: var(--error);
+  font-weight: 500;
+}
+
+.product-form-error--general {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-lg);
+  color: var(--error);
+}
+
+/* Info messages simplificados */
+.product-form-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  font-size: 0.875rem;
+  color: var(--primary);
+}
+
+/* Botones optimizados - SIN TRANSFORMACIONES */
+.product-form-btn {
+  padding: var(--spacing-md) var(--spacing-xl);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  /* Removidas todas las transformaciones */
+}
+
+.product-form-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.product-form-btn--primary {
+  background: var(--primary);
+  color: white;
+}
+
+.product-form-btn--primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+  /* Sin transform ni box-shadow */
+}
+
+.product-form-btn--secondary {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 2px solid var(--border-primary);
+}
+
+.product-form-btn--secondary:hover:not(:disabled) {
+  background: var(--bg-tertiary);
+}
+
+.product-form-btn--sm {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.75rem;
+}
+
+/* ========================================== */
+/* SECCIÓN DE IMAGEN OPTIMIZADA */
+/* ========================================== */
+
+.product-image-section {
+  background: var(--bg-secondary);
+  border: 2px dashed var(--border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  text-align: center;
+}
+
+.product-form-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.product-image-preview {
+  width: 280px;
+  height: 180px;
+  margin: 0 auto var(--spacing-lg);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-primary);
+  border: 2px solid var(--border-primary);
+  position: relative;
+  /* Removidos todos los hover effects que causan lag */
+}
+
+.product-image-preview__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Removido background pattern complejo */
+  background: #f8f9fa;
+}
+
+.product-image-preview__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  padding: var(--spacing-sm);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.product-image-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.product-image-info__text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: var(--spacing-xs) 0;
+  line-height: 1.4;
+}
+
+.product-image-info__text strong {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ========================================== */
+/* RESPONSIVE OPTIMIZADO */
+/* ========================================== */
+
+@media (max-width: 768px) {
+  .product-form-overlay {
+    padding: var(--spacing-md);
+  }
+  
+  .product-form-container {
+    max-height: 95vh;
+  }
+  
+  .product-form-header,
+  .product-form-content,
+  .product-form-footer {
+    padding: var(--spacing-lg);
+  }
+  
+  .product-form-title {
+    font-size: 1.5rem;
+  }
+  
+  .product-form-grid--2col,
+  .product-form-grid--3col {
+    grid-template-columns: 1fr;
+  }
+  
+  .product-image-preview {
+    width: 240px;
+    height: 150px;
+  }
+  
+  .product-image-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .product-form-footer {
+    flex-direction: column-reverse;
+    gap: var(--spacing-sm);
+  }
+  
+  .product-form-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-form-header,
+  .product-form-content,
+  .product-form-footer {
+    padding: var(--spacing-md);
+  }
+  
+  .product-image-preview {
+    width: 200px;
+    height: 120px;
+  }
+}

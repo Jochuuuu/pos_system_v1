@@ -1,0 +1,8 @@
+/* frontend/src/styles/index.css */
+/* Importar todos los estilos en orden */
+@import './variables.css';
+@import './base.css';
+@import './main_components/index.css';
+@import './dashboard.css';
+@import './inventory/index.css';  /* 🆕 AGREGAR ESTA LÍNEA */
+@import './utilities.css';
